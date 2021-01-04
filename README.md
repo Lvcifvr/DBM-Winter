@@ -1,14 +1,14 @@
 # Grab the latest version [here](https://github.com/Lvcifvr/DBM-Winter/archive/main.zip)
 The master branch is used for development
 
-# DBM-Deathwing
+# DBM-Winter edit by Maevis
 A version of WotLK DBM with accurate timers for Winter-WoW server. Please see the Release tab to find the latest stable version.
 
 # Changelog 
 #### General Notes
 * Timings are based on personal experience, vods, and logs of other guilds on Winter. 
 * Due to some form of spell batching / spell queuing, there is a small amount of randomness on a lot of boss abilities. 
-* * Most of these are marked as CDs
+* Most of these are marked as CDs
 * For example: Frost Blast on Kel'Thuzad, Locust Swarm (Cast, not the duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random.
 
 # 1.00 
