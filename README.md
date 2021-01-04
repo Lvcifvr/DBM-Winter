@@ -9,11 +9,9 @@ A version of WotLK DBM with accurate timers for Winter-WoW server.
 * Timings are based on personal experience other guilds on Winter. 
 * DBM Core modifed added a new pull request from "/dbm pull ##" to "/pull ##"
 
-# Raids
-### DBM Core Overhaul
-* Added sounds to DBM.
 # 1.04
 ### DBM Core modifed
+* Added sounds to DBM.
 
 # 1.03
 ### Lady Deathwhisper
