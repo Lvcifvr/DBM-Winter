@@ -60,7 +60,7 @@ f:SetScript("OnUpdate", fCLFix)
 DBM = {
 	Revision = ("$Revision: 2021 $"):sub(12, -3),
 	Version = "1.05",
-	DisplayVersion = "1.05 DBM-Winter. Deathwing edit by Maevis.", -- the string that is shown as version
+	DisplayVersion = "1.05 DBM Winter-WoW Deathwing edit by Maevis.", -- the string that is shown as version
 	ReleaseRevision = 2021 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
