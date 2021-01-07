@@ -1,5 +1,5 @@
 # Grab the latest version [here](https://github.com/Lvcifvr/DBM-Winter/archive/main.zip)
-Removed TOC, Ulduar, Naxxramas and Onyxia will add them soon once the server is started doing these raids. But for now the focus is ICC and Ruby Sanctum.
+Removed TOC, Ulduar, Naxxramas, Coliseum and Onyxia will add them soon once the server is started doing these raids. But for now the focus is ICC and Ruby Sanctum.
 
 # DBM-Winter edit by Maevis
 A version of WotLK DBM with accurate timers for Winter-WoW server. 
