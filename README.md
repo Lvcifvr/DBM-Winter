@@ -10,7 +10,7 @@ A version of WotLK DBM with accurate timers for Winter-WoW server.
 * DBM Core modifed added a new pull request from "/dbm pull ##" to "/pull ##"
 
 # 1.05
-### DBM Core modifed
+### Sndragosa Instability Tracker
 * Added instability counter when caster reach 3 stack of instability.
 
 # 1.04
