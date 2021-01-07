@@ -208,8 +208,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			warnInstability:Show(args.amount or 1)
 			timerInstability:Start()
-			if (args.amount or 1) >= 2 then
+			if (args.amount or 1) >= 3 then
 				specWarnInstability:Show(args.amount)
+				SendChatMessage(L.Gained_Instability:format(args.destName), "RAID")
 			end
 		end
 	elseif args:IsSpellID(70127, 72528, 72529, 72530) then	--Mystic Buffet (phase 3 - everyone)
