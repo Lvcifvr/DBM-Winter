@@ -22,10 +22,10 @@ mod:RegisterEvents(
 	"SWING_MISSED"
 )
 
-local isPAL = select(2, UnitClass("player")) == "PALADIN"
-local isPRI = select(2, UnitClass("player")) == "PRIEST"
-local isRSH = select(2, UnitClass("player")) == "SHAMAN"
-local isRDU = select(2, UnitClass("player")) == "DRUID"
+local isPAL = select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
+local isPRI = select(2, UnitClass("player")) == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
+local isRSH = select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(3)) >= 51)
+local isRDU = select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(3)) >= 51)
 local isWLK = select(2, UnitClass("player")) == "WARLOCK"
 local isHNT = select(2, UnitClass("player")) == "HUNTER"
 local isRGE = select(2, UnitClass("player")) == "ROGUE"
@@ -105,7 +105,7 @@ local berserkTimerLordaeron		= mod:NewTimer(735, "Berserk Timer Lordaeron", nil,
 local soundDefile			= mod:NewSound(72762)
 
 mod:AddBoolOption("SpecWarnHealerGrabbed", mod:IsTank(), or mod:IsHealer(), "announce")
-mod:AddBoolOption("SpecWarnDpsGrabbed", mod:IsDps(), "announce")
+mod:AddBoolOption("SpecWarnDpsGrabbed", mod:IsRanged(), or mod:IsMelee() "announce")
 mod:AddBoolOption("DefileIcon")
 mod:AddBoolOption("NecroticPlagueIcon")
 mod:AddBoolOption("RagingSpiritIcon")
@@ -469,19 +469,14 @@ do
 						specWarnYouAreValkd:Show()
 							SendChatMessage(L.DPSGrabbed:format(args.destName), "SAY")
 						
-						if mod:IsDps() then--Is player that's grabbed a Dps
+						if mod:IsRanged() then--Is player that's grabbed a Range
 							if isWLK then
 								mod:SendSync("WLKGrabbed", UnitName("player"))--They are a Warlock
 								SendChatMessage(L.WarlockGrabbed:format(args.destName), "SAY")
 							elseif isHNT then
 								mod:SendSync("HNTGrabbed", UnitName("player"))--They are a Hunter
 								SendChatMessage(L.HunterGrabbed:format(args.destName), "SAY")
-							elseif isRGE then
-								mod:SendSync("RGEGrabbed", UnitName("player"))--They are a Hunter
-								SendChatMessage(L.RogueGrabbed:format(args.destName), "SAY")
-							elseif isWAR then
-								mod:SendSync("WARGrabbed", UnitName("player"))--They are a Warrior
-								SendChatMessage(L.WarriorGrabbed:format(args.destName), "SAY")
+
 							elseif isMGE then
 								mod:SendSync("MGEGrabbed", UnitName("player"))--They are a Mage
 								SendChatMessage(L.MageGrabbed:format(args.destName), "SAY")
@@ -489,7 +484,15 @@ do
 								end
 							end
 						end
-			
+						if mod:IsMelee() then--Is player that's grabbed a Melee
+							if isRGE then
+								mod:SendSync("RGEGrabbed", UnitName("player"))--They are a Rogue
+								SendChatMessage(L.RogueGrabbed:format(args.destName), "SAY")
+							elseif isWAR then
+								mod:SendSync("WARGrabbed", UnitName("player"))--They are a Warrior
+								SendChatMessage(L.WarriorGrabbed:format(args.destName), "SAY")
+							end
+						end
 						if mod:IsHealer() then--Is player that's grabbed a healer
 							if isPAL then
 								mod:SendSync("PALGrabbed", UnitName("player"))--They are a holy paladin
