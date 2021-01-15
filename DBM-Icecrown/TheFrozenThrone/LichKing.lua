@@ -489,7 +489,6 @@ do
 								end
 							end
 						end
-					end
 			
 						if mod:IsHealer() then--Is player that's grabbed a healer
 							if isPAL then
