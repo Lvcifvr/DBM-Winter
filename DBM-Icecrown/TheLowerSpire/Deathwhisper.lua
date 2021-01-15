@@ -234,10 +234,14 @@ do
 		elseif args:IsSpellID(71204) then
 			warnTouchInsignificance:Show(args.spellName, args.destName, args.amount or 1)
 			timerTouchInsignificance:Start(args.destName)
-			if args:IsPlayer() and (args.amount or 1) >= 3 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25")) then
+			if args:IsPlayer() and (args.amount or 1) >= 2 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25")) then
 				specWarnTouchInsignificance:Show(args.amount)
+				SendChatMessage(L.TankStartBuildingAggro:format(args.destName), "SAY")
+				
 			elseif args:IsPlayer() and (args.amount or 1) >= 5 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) then
 				specWarnTouchInsignificance:Show(args.amount)
+				SendChatMessage(L.TankSwitchNowOnBoss:format(args.destName), "SAY")
+				
 			end
 		end
 	end
@@ -290,6 +294,7 @@ function mod:SPELL_SUMMON(args)
 		if time() - lastSpirit > 5 then
 			warnSummonSpirit:Show()
 			timerSummonSpiritCD:Start()
+			
 			PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\spirits.mp3")
 			lastSpirit = time()
 		end
