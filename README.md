@@ -15,6 +15,14 @@ A version of WotLK DBM with accurate timers for Winter-WoW server.
 * added feature for DPS (Warlock, Mage, Hunter, Rogue, Warrior) class grabbed to announce on "SAY" chat.
 * modified Announce channel for Valkyr Grabs on Lich King Encounter on "SAY" chat.
 
+### Updated Professor Putricide Encounter
+* added Notification via "SAY" how many Stacks Mutated Plague starts to 1
+* added Notification via "SAY" if Gaseous Bloat is on You
+* modified Unit Hp for Threshold for P3 from 38% to 39%
+
+### Updated Lady Deathwhisper Encounter
+* added Notification via "SAY" for Touch of Insignificance.
+
 # 1.05
 ### Sndragosa Instability Tracker
 * Added instability counter when caster reach 3 stack of instability.
