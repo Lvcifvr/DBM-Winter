@@ -51,9 +51,8 @@ function mod:SPELL_CAST_START(args)
 		specWarnRepellingWave:Show()
 		timerRepellingWave:Show()
 	end
-end
 
-function mod:SPELL_AURA_APPLIED(args)
+local function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(75125) then
 		warnWhirlwind:Show()
 		timerWhirlwind:Show()
