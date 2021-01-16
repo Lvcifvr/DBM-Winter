@@ -420,7 +420,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(70338, 73785, 73786, 73787) then	--Necrotic Plague (hop IDs only since they DO fire for >=2 stacks, since function never announces 1 stacks anyways don't need to monitor LK casts/Boss Whispers here)
 		if self.Options.AnnouncePlagueStack and DBM:GetRaidRank() > 0 then
 			if args.amount % 10 == 0 or (args.amount >= 10 and args.amount % 5 == 0) then		-- Warn at 10th stack and every 5th stack if more than 10
-				SendChatMessage(L.PlagueStackWarning:format(args.destName, (args.amount or 1)), "RAID")
+				SendChatMessage(L.PlagueStackWarning:format(args.destName, (args.amount or 1)), "SAY")
 			elseif (args.amount or 1) >= 30 and not warnedAchievement then						-- Announce achievement completed if 30 stacks is reached
 				SendChatMessage(L.AchievementCompleted:format(args.destName, (args.amount or 1)), "RAID_WARNING")
 				warnedAchievement = true
@@ -461,10 +461,10 @@ do
 					end
 					if mod.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 0 then
 						if mod.Options.ValkyrIcon then
-							SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName("raid"..i)), "RAID")
+							SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName("raid"..i)), "SAY")
 							grabIcon = grabIcon + 1
 						else
-							SendChatMessage(L.ValkGrabbed:format(UnitName("raid"..i)), "RAID")
+							SendChatMessage(L.ValkGrabbed:format(UnitName("raid"..i)), "SAY")
 						end
 					end
 				end
