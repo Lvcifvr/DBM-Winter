@@ -200,8 +200,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			warnChilledtotheBone:Show(args.amount or 1)
 			timerChilledtotheBone:Start()
-			if (args.amount or 1) >= 4 then
+			if (args.amount or 1) >= 5 then
 				specWarnChilledtotheBone:Show(args.amount)
+				SendChatMessage(L.Gained_ChilledToTheBone:format(args.destName), "SAY")
 			end
 		end
 	elseif args:IsSpellID(69766) then	--Instability (casters)
