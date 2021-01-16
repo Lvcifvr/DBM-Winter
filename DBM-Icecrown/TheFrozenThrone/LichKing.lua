@@ -22,15 +22,8 @@ mod:RegisterEvents(
 	"SWING_MISSED"
 )
 
-local isPAL = select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
-local isPRI = select(2, UnitClass("player")) == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
-local isRSH = select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(3)) >= 51)
-local isRDU = select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(3)) >= 51)
-local isWLK = select(2, UnitClass("player")) == "WARLOCK"
-local isHNT = select(2, UnitClass("player")) == "HUNTER"
-local isRGE = select(2, UnitClass("player")) == "ROGUE"
-local isWAR = select(2, UnitClass("player")) == "WARRIOR"
-local isMGE = select(2, UnitClass("player")) == "MAGE"
+local isPAL = select(2, UnitClass("player")) == "PALADIN"
+local isPRI = select(2, UnitClass("player")) == "PRIEST"
 
 local warnRemorselessWinter = mod:NewSpellAnnounce(74270, 3) --Phase Transition Start Ability
 local warnQuake				= mod:NewSpellAnnounce(72262, 4) --Phase Transition End Ability
@@ -60,13 +53,6 @@ local specWarnRagingSpirit	= mod:NewSpecialWarningYou(69200) --Transition Add
 local specWarnYouAreValkd	= mod:NewSpecialWarning("SpecWarnYouAreValkd") --Phase 2+ Ability
 local specWarnPALGrabbed	= mod:NewSpecialWarning("SpecWarnPALGrabbed", nil, false) --Phase 2+ Ability
 local specWarnPRIGrabbed	= mod:NewSpecialWarning("SpecWarnPRIGrabbed", nil, false) --Phase 2+ Ability
-local specWarnRSHGrabbed        = mod:NewSpecialWarning("SpecWarnRSHGrabbed", nil, false) --Phase 2+ Ability
-local specWarnRDUGrabbed        = mod:NewSpecialWarning("SpecWarnRDUGrabbed", nil, false) --Phase 2+ Ability
-local specWarnWLKGrabbed	= mod:NewSpecialWarning("SpecWarnWLKGrabbed", nil, false) --Phase 2+ Ability
-local specWarnHNTGrabbed	= mod:NewSpecialWarning("SpecWarnHNTGrabbed", nil, false) --Phase 2+ Ability
-local specWarnRGEGrabbed	= mod:NewSpecialWarning("SpecWarnRGEGrabbed", nil, false) --Phase 2+ Ability
-local specWarnWARGrabbed	= mod:NewSpecialWarning("SpecWarnWARGrabbed", nil, false) --Phase 2+ Ability
-local specWarnMGEGrabbed	= mod:NewSpecialWarning("SpecWarnMGEGrabbed", nil, false) --Phase 2+ Ability
 local specWarnDefileCast	= mod:NewSpecialWarning("SpecWarnDefileCast") --Phase 2+ Ability
 local specWarnDefileNear	= mod:NewSpecialWarning("SpecWarnDefileNear", false) --Phase 2+ Ability
 local specWarnDefile		= mod:NewSpecialWarningMove(73708) --Phase 2+ Ability
@@ -104,8 +90,7 @@ local berserkTimerLordaeron		= mod:NewTimer(735, "Berserk Timer Lordaeron", nil,
 
 local soundDefile			= mod:NewSound(72762)
 
-mod:AddBoolOption("SpecWarnHealerGrabbed", mod:IsTank(), or mod:IsHealer(), "announce")
-mod:AddBoolOption("SpecWarnDpsGrabbed", mod:IsRanged(), or mod:IsMelee() "announce")
+mod:AddBoolOption("SpecWarnHealerGrabbed", mod:IsTank() or mod:IsHealer(), "announce")
 mod:AddBoolOption("DefileIcon")
 mod:AddBoolOption("NecroticPlagueIcon")
 mod:AddBoolOption("RagingSpiritIcon")
@@ -356,7 +341,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		lastPlagueCast = GetTime()
 		if args:IsPlayer() then
 			specWarnNecroticPlague:Show()
-			SendChatMessage(L.NecroticOnMe:format(args.destName), "SAY")
 			PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\necro.mp3")
 		end
 		if self.Options.NecroticPlagueIcon then
@@ -467,57 +451,20 @@ do
 					valkyrTargets[i] = true          -- this person has been announced
 					if UnitName("raid"..i) == UnitName("player") then
 						specWarnYouAreValkd:Show()
-							SendChatMessage(L.DPSGrabbed:format(args.destName), "SAY")
-						
-						if mod:IsRanged() then--Is player that's grabbed a Range
-							if isWLK then
-								mod:SendSync("WLKGrabbed", UnitName("player"))--They are a Warlock
-								SendChatMessage(L.WarlockGrabbed:format(args.destName), "SAY")
-							elseif isHNT then
-								mod:SendSync("HNTGrabbed", UnitName("player"))--They are a Hunter
-								SendChatMessage(L.HunterGrabbed:format(args.destName), "SAY")
-
-							elseif isMGE then
-								mod:SendSync("MGEGrabbed", UnitName("player"))--They are a Mage
-								SendChatMessage(L.MageGrabbed:format(args.destName), "SAY")
-									end
-								end
-							end
-						end
-						if mod:IsMelee() then--Is player that's grabbed a Melee
-							if isRGE then
-								mod:SendSync("RGEGrabbed", UnitName("player"))--They are a Rogue
-								SendChatMessage(L.RogueGrabbed:format(args.destName), "SAY")
-							elseif isWAR then
-								mod:SendSync("WARGrabbed", UnitName("player"))--They are a Warrior
-								SendChatMessage(L.WarriorGrabbed:format(args.destName), "SAY")
-							end
-						end
 						if mod:IsHealer() then--Is player that's grabbed a healer
 							if isPAL then
 								mod:SendSync("PALGrabbed", UnitName("player"))--They are a holy paladin
-								SendChatMessage(L.HpalGrabbed:format(args.destName), "SAY")	
 							elseif isPRI then
 								mod:SendSync("PRIGrabbed", UnitName("player"))--They are a disc/holy priest
-								SendChatMessage(L.DHpriestGrabbed:format(args.destName), "SAY")
-							elseif isRSH then
-								mod:SendSync("RSHGrabbed", UnitName("player"))--They are a Resto Shaman
-								SendChatMessage(L.RestoShamGrabbed:format(args.destName), "SAY")
-							elseif isRDU then
-								mod:SendSync("RDUGrabbed", UnitName("player"))--They are Resto Druid
-								SendChatMessage(L.RestoDruidGrabbed:format(args.destName), "SAY")
-				
-									end
-								end
 							end
 						end
-		
+					end
 					if mod.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 0 then
 						if mod.Options.ValkyrIcon then
-							SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName("raid"..i)), "SAY")
+							SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName("raid"..i)), "RAID")
 							grabIcon = grabIcon + 1
 						else
-							SendChatMessage(L.ValkGrabbed:format(UnitName("raid"..i)), "SAY")
+							SendChatMessage(L.ValkGrabbed:format(UnitName("raid"..i)), "RAID")
 						end
 					end
 				end
@@ -649,19 +596,7 @@ function mod:OnSync(msg, target)
 	elseif msg == "PRIGrabbed" then--Does this function fail to alert second healer if 2 different priests are grabbed within < 2.5 seconds?
 		if self.Options.specWarnHealerGrabbed then
 			specWarnPRIGrabbed:Show(target)
-		
-	elseif msg == "RSHGrabbed" then--Does this function fail to alert second healer if 2 different shamans are grabbed within < 2.5 seconds?
-		if self.Options.specWarnHealerGrabbed then
-			specWarnRSHGrabbed:Show(target)
-								
-	elseif msg == "RDUGrabbed" then--Does this function fail to alert second healer if 2 different druid are grabbed within < 2.5 seconds?
-		if self.Options.specWarnHealerGrabbed then
-			specWarnRDUGrabbed:Show(target)
-							
 		end
-	end
-end
-								
 	elseif msg == "TrapOn" then
 		if not self.Options.LKBugWorkaround then
 			warnTrapCast:Show(target)
