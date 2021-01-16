@@ -34,11 +34,6 @@ local warnedSplit3	= false
 local brandTargets = {}
 local brandIcon	= 8
 
-local function showBrandWarning()
-	warningWarnBrand:Show(table.concat(brandTargets, "<, >"))
-	table.wipe(brandTargets)
-end
-
 function mod:OnCombatStart(delay)
 	warnedSplit1 = false
 	warnedSplit2 = false
