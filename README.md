@@ -11,8 +11,7 @@ A version of WotLK DBM with accurate timers for Winter-WoW server.
 
 # 1.06
 ### Updated LichKing Encounter
-* added feature for Healers (Resto Shaman, Holy Paladin, Disc/Holy Priest, Resto Druid) class grabbed to announce on "SAY" chat.
-* added feature for DPS (Warlock, Mage, Hunter, Rogue, Warrior) class grabbed to announce on "SAY" chat.
+* added feature for Healers (Holy Paladin, Disc/Holy Priest) class grabbed to announce on "SAY" chat.
 * modified Announce channel for Valkyr Grabs on Lich King Encounter on "SAY" chat.
 
 ### Updated Professor Putricide Encounter
