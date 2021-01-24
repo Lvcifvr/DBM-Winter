@@ -36,6 +36,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerMortalWound:Start(args.destName)
 		if args:IsPlayer() and (args.amount or 1) >= 5 then
 			specWarnMortalWound:Show(args.amount)
+			SendChatMessage(L.Gained-MortalWound:format(args.destName), "RAID")
 		end
 	end
 end
