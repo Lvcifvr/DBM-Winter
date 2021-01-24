@@ -354,7 +354,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\soulreaper.mp3")
 		if args:IsPlayer() then
 			specWarnSoulreaper:Show()
-				SendChatMessage(L.SoulReaper-OnMe:format(args.destName), "RAID_WARNING")
+				SendChatMessage(L.SoulReaper-OnMe:format(args.destName), "SAY")
 		end
 	elseif args:IsSpellID(69200) then -- Raging Spirit
 		warnRagingSpirit:Show(args.destName)
