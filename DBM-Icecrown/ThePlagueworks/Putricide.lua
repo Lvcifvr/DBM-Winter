@@ -42,7 +42,6 @@ local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, false)
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
 local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
 local specWarnUnboundPlague			= mod:NewSpecialWarningYou(72856)		-- Heroic Ability
-local specWarnMutatedPlague			= mod:NewSpecialWarningYou(72451)		
 
 local timerGaseousBloat				= mod:NewTargetTimer(20, 70672)			-- Duration of debuff
 local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341)				-- Approx
@@ -236,7 +235,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerGaseousBloat:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnGaseousBloat:Show()
-			SendChatMessage(L.OrangeOnMe:format(args.destName), "SAY")
 			soundGaseousBloat:Play()
 		end
 		if self.Options.GaseousBloatIcon then
@@ -247,11 +245,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.spellName, args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
-		if (args.amount or 1) >= 1 then
-			specWarnMutatedPlague:Show(args.amount)
-			SendChatMessage(L.Gained_MutatedPlague:format(args.destName), "SAY")
-		end
-			
 	elseif args:IsSpellID(70542) then
 		timerMutatedSlash:Show(args.destName)
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
@@ -326,7 +319,7 @@ function mod:UNIT_HEALTH(uId)
 	if self.vb.phase == 1 and not warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
 		warned_preP2 = true
 		warnPhase2Soon:Show()	
-	elseif self.vb.phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.39 then
+	elseif self.vb.phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
 		warned_preP3 = true
 		warnPhase3Soon:Show()	
 	end
