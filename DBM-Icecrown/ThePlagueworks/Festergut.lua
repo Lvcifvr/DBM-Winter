@@ -209,6 +209,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerGastricBloatCD:Start()
 		if args:IsPlayer() and (args.amount or 1) >= 9 then
 			specWarnGastricBloat:Show(args.amount)
+			SendChatMessage(L.Gained Gastric Bloat:format(args.destName), "SAY")
 		end
 	elseif args:IsSpellID(69240, 71218, 73019, 73020) and args:IsDestTypePlayer() then	-- Vile Gas
 		vileGasTargets[#vileGasTargets + 1] = args.destName
