@@ -2,40 +2,36 @@ local mod	= DBM:NewMod("Freya_Elders", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 1192 $"):sub(12, -3))
-
--- passive mod to provide information for multiple fight (trash respawn)
--- mod:SetCreatureID(32914, 32915, 32913)
--- mod:RegisterCombat("combat")
+mod:SetCreatureID(32914, 32915, 32913)
+mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_CAST_START",
+	"SPELL_AURA_APPLIED",
+	"SPELL_AURA_APPLIED_DOSE",
+	"SPELL_SUMMON",
+	"UNIT_TARGET",
 	"SPELL_AURA_APPLIED",
 	"UNIT_DIED"
 )
 
 local warnImpale			= mod:NewSpellAnnounce(62928)
-
+local warnPhotosynthesis		= mod:NewSpellAnnounce(62209)
 local timerImpale			= mod:NewTargetTimer(5, 62928)
+local timerUnstableSunBeam		= mod:NewTargetTimer(15, 62243)
+
 
 local specWarnFistofStone	= mod:NewSpecialWarningSpell(62344, mod:IsTank())
+local specWarnUnstableSunBeam 		= mod:NewSpecialWarningCast(62243, mod:IsTank())
+local specWarnPhotosynthesis		=mod:NewSpecialWarnin ---- unfinished code
 local specWarnGroundTremor	= mod:NewSpecialWarningCast(62932, true)
+local specWarnImpale = mod:NewSpecialWarningCast(
 
-mod:AddBoolOption("PlaySoundOnFistOfStone", false)
+mod:AddBoolOption("PlaySoundOnFistOfStone", true)
 mod:AddBoolOption("TrashRespawnTimer", true, "timer")
+mod:AddBoolOption("HealthFrame", true)
+mod:AddBoolOption("RangeFrame", true)
 
---
--- Trash: 33430 Guardian Lasher (flower)
--- 33355 (nymph)
--- 33354 (tree)
---
--- Elder Stonebark (ground tremor / fist of stone)
--- Elder Brightleaf (unstable sunbeam)
---
---Mob IDs:
--- Elder Ironbranch: 32913
--- Elder Brightleaf: 32915
--- Elder Stonebark: 32914
---
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(62344) then 					-- Fists of Stone
@@ -48,6 +44,12 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
+function mod:SPELL_CAST_START(args)
+	if args:IsSpellID(62243) then
+		specWarnUnstableSunBeam:Show()
+		specWarn
+	
+	
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(62310, 62928) then 			-- Impale
 		warnImpale:Show(args.destName)
