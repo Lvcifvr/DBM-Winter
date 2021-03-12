@@ -42,8 +42,8 @@ local specWarnDarkMartyrdom			= mod:NewSpecialWarningMove(72499, mod:IsMelee())
 local specWarnFrostbolt				= mod:NewSpecialWarningInterupt(72007, false)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", not mod:IsTank())
 
-local timerAddsNormal				= mod:NewTimer(60, "TimerAddsNormal", 61131)]]--
-local timerAddsHeroic				= mod:NewTimer(45, "TimerAddsHeroic", 61131)
+--[[local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131)]]--
+local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131)
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289)
 local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, false)
@@ -75,7 +75,7 @@ function mod:OnCombatStart(delay)
 		self:ScheduleMethod(0.5, "CreateShildHPFrame")
 	end		
 	berserkTimer:Start(-delay)
-	timerAddsNormal:Start(7)
+	timerAdds:Start(7)
 	warnAddsSoon:Schedule(4)			-- 3sec pre-warning on start
 	self:ScheduleMethod(7, "addsTimer")
 	if not mod:IsDifficulty("normal10") then
@@ -125,31 +125,31 @@ do	-- add the additional Shield Bar
 	end
 end
 
-function mod:addsTimer()  -- Original add spawn timers, working for normal mode
-	timerAddsNormal:Cancel()
-	warnAddsSoon:Cancel()
-	if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
-		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
-		self:ScheduleMethod(45, "addsTimer")
-		timerAddsNormal:Start(45)
-	else
-		warnAddsSoon:Schedule(55)	-- 5 secs prewarning
-		self:ScheduleMethod(60, "addsTimer")
-		timerAddsNormal:Start(60)
-	end
-end
-
-function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
-	timerAddsHeroic:Cancel()
+--[[function mod:addsTimer()  -- Original add spawn timers, working for normal mode
+	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
 	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
 		self:ScheduleMethod(45, "addsTimer")
-		timerAddsHeroic:Start(45)
+		timerAdds:Start(45)
+	else
+		warnAddsSoon:Schedule(55)	-- 5 secs prewarning
+		self:ScheduleMethod(60, "addsTimer")
+		timerAdds:Start()
+	end
+end]]--
+
+function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
+	timerAdds:Cancel()
+	warnAddsSoon:Cancel()
+	if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
+		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
+		self:ScheduleMethod(45, "addsTimer")
+		timerAdds:Start(45)
 	else
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
 		self:ScheduleMethod(45, "addsTimer")
-		timerAddsHeroic:Start(45)
+		timerAdds:Start(45)
 	end
 end
 
