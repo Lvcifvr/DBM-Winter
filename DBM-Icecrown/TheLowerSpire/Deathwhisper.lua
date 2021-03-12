@@ -125,10 +125,10 @@ do	-- add the additional Shield Bar
 	end
 end
 
---[[function mod:addsTimer()  -- Original add spawn timers, working for normal mode
+function mod:addsTimer()  -- Original add spawn timers, working for normal mode
 	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+	if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
 		self:ScheduleMethod(45, "addsTimer")
 		timerAdds:Start(45)
@@ -137,12 +137,12 @@ end
 		self:ScheduleMethod(60, "addsTimer")
 		timerAdds:Start()
 	end
-end]]--
+end
 
 function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
-	if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
 		self:ScheduleMethod(45, "addsTimer")
 		timerAdds:Start(45)
