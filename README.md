@@ -9,6 +9,10 @@ A version of WotLK DBM with accurate timers for Winter-WoW server.
 * Timings are based on personal experience other guilds on Winter. 
 * DBM Core modifed added a new pull request from "/dbm pull ##" to "/pull ##"
 
+# 2.04
+### Updated Lady Deathwhisper
+* added timers for normal encounter on adds spawn
+
 # 1.06
 ### Updated LichKing Encounter
 * added feature for Healers (Holy Paladin, Disc/Holy Priest) class grabbed to announce on "SAY" chat.
